@@ -9,25 +9,28 @@
 import Foundation
 import ObjectMapper
 
-struct Owner: BaseMappable {
+struct Owner: Mappable {
     var id: Int
     var name: String
     var fullName: String
     
-    //    init?(map: Map) {
-    //        mapping(map: map)
-    //    }
+        init?(map: Map) {
+            self.id = 0
+            self.name = "name"
+            self.fullName = "full"
+            mapping(map: map)
+        }
     
-    //
-    //    init(id: Int, name: String, fullName: String) {
-    //        self.id = id
-    //        self.name = name
-    //        self.fullName = fullName
-    //    }
+    
+        init(id: Int, name: String, fullName: String) {
+            self.id = id
+            self.name = name
+            self.fullName = fullName
+        }
     
     mutating func mapping(map: Map) {
         id <- map["id"]
-        name <- map["name"]
+        name <- map["login"]
         fullName <- map["full_name"]
     }
 }

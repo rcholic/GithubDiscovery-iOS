@@ -18,13 +18,32 @@ enum RepoSearchViewModelResult {
 }
 
 class RepoSearchViewModel {
+    //inputs
+    var triggerRefresh = PublishSubject<Void>()
+    private var provider: MoyaProvider<Github>
+    
+    // outputs
+    let executing: Driver<Bool>
+    var results: Driver<[RepoCellViewModel]>
+    
+    init(provider: MoyaProvider<Github>) {
+        self.provider = provider
+        let activityIndicator = ActivityIndicator()
+        self.executing = activityIndicator.asDriver().distinctUntilChanged()
+        
+        results = Variable<[RepoCellViewModel]>([]).asDriver() // init
+        
+        
+    }
+    
     /*
     // Input
+    var triggerRefresh = PublishSubject<Void>()
     var searchText = Variable("")
     var selectedItem = PublishSubject<NSIndexPath>()
     
     // Output
-//    let results: Driver<RepoSearchViewModelResult>
+    let results: Driver<RepoSearchViewModelResult>
     let executing: Driver<Bool>
     let selectedViewModel: Observable<RepositoryViewModel>
     let title = "Search"
@@ -41,12 +60,20 @@ class RepoSearchViewModel {
         let repoModels = Variable<[Repo]>([])
         self.repoModels = repoModels
         
+//        results = triggerRefresh.startWith(()).flatMapLatest {
+//            return provider.request(.trendingReposSinceLastWeek, completion: { (result) in
+//                return result
+//            })
+//        }
+        
+        
         let searchTextObservable = searchText.asObservable()
    
         let queryResultsObservable = searchTextObservable
             .throttle(0.3, scheduler: MainScheduler.instance)
             .filter { $0.characters.count > 0 }
             .flatMapLatest { query in
+                provider.request(repoSearch, completion: <#T##Completion##Completion##(Result<Response, Error>) -> ()#>)
                 provider.request(Github.repoSearch(query: query))
                     .retry(3)
                     .trackActivity(activityIndicator)
@@ -81,6 +108,7 @@ class RepoSearchViewModel {
             }
             .shareReplay(1)
     }
-    */
+ 
+ */
  
 }

@@ -33,7 +33,7 @@ extension Github: TargetType {
             return "/authorizations"
         case .repoSearch(_),
              .trendingReposSinceLastWeek:
-            return "/search/repositories"
+            return "search/repositories"
         case .repo(let owner, let repoName):
             return "/repos\(owner)/\(repoName)"
         case .repoReadMe(let owner, let repoName):
@@ -49,13 +49,17 @@ extension Github: TargetType {
     
     public var method: Moya.Method {
         switch self {
-        case .repoSearch(_), .repo(_, _), .pulls(_, _):
+        case .repoSearch(_), .repo(_, _), .pulls(_, _), .trendingReposSinceLastWeek:
             return .GET
             
         default:
             return .GET
             
         }
+    }
+    
+    public var headers: [String: String]? {
+        return ["Authorization": "token \(GITHUB_TOKEN)"]
     }
     
     public var parameters: [String: Any]? {
@@ -69,6 +73,9 @@ extension Github: TargetType {
             return nil
         case .repoSearch(let query):
             return ["q": query.URLEscapedString as AnyObject]
+            
+        case .trendingReposSinceLastWeek:
+            return ["q": "ios"]
             
         default:
             return nil
@@ -92,7 +99,7 @@ extension Github: TargetType {
     
     public var target: TargetType {
         switch self {
-        case .issues(_, _):
+        case .issues(_, _), .trendingReposSinceLastWeek, .pulls(_, _):
             return self
         default:
             return self
@@ -104,24 +111,17 @@ var endpointClosure = { (target: Github) -> Endpoint<Github> in
     let url = target.baseURL.appendingPathComponent(target.path).absoluteString
     let endpoint: Endpoint<Github> = Endpoint(URL: url, sampleResponseClosure: {.networkResponse(200, target.sampleData)}, method: target.method, parameters: target.parameters)
     
-    //    switch target {
-    //    /*
-    //    case .Token(let userString, let passwordString):
-    //        let credentialData = "\(userString):\(passwordString)".data(using: String.Encoding.utf8)!
-    //        let base64Credentials = credentialData.base64EncodedStringWithOptions([])
-    //        return endpoint.endpointByAddingHTTPHeaderFields(["Authorization": "Basic \(base64Credentials)"])
-    //            .endpointByAddingParameterEncoding(.JSON)
-    //    default:
-    //        let appToken = Token()
-    //        guard let token = appToken.token else {
-    //            return endpoint
-    //        }
-    //        return endpoint.endpointByAddingHTTPHeaderFields(["Authorization": "token \(token)"])
-    //        */
-    ////    default:
-    ////        return endpoint.endpointByAddingParameterEncoding()
-    //    }
-    return endpoint
+    print("end point closure")
+    
+        switch target {
+            
+        case .trendingReposSinceLastWeek:
+            return endpoint.endpointByAddingHTTPHeaderFields(["Authorization": "token \(GITHUB_TOKEN)"])
+ 
+        default:
+            return endpoint.endpointByAddingParameterEncoding(JSONEncoding())
+        }
+//    return endpoint.endpointByAddingHTTPHeaderFields(["Authorization": "token \(GITHUB_TOKEN)"])
 }
 
 private extension String {

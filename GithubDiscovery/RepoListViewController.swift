@@ -10,12 +10,14 @@ import UIKit
 import Moya
 import RxSwift
 import RxCocoa
+import SwiftyJSON
+import ObjectMapper
 
 class RepoListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
    
-    var repos: [String] = [] // dummy
+    var repos: [Repo] = []
     
     // constants
     private let repoCellId = "RepoCell"
@@ -55,8 +57,22 @@ class RepoListViewController: UIViewController {
     }
     
     private func bindToRx() {
-        for i in 1...20 {
-            repos.append("Hello \(i)")
+        
+        GithubProvider.request(.trendingReposSinceLastWeek) { result in
+            print("result.value: \(result.value?.data)")
+            result.analysis(ifSuccess: { res in
+                let data = try! res.mapJSON()
+                let resWrapper = JSON(data)
+                self.repos = resWrapper["items"].arrayValue.map {
+                    print("$0.description: \($0.dictionary)")
+                    return Mapper<Repo>().map(JSON: $0.dictionary!)!
+                }
+                self.tableView.reloadData()
+                print("res.response items: \(data), code: \(res.statusCode), repos count: \(self.repos.count)")
+                }, ifFailure: { err in
+                    print("error: \(err)")
+            })
+            print("result: \(result.description)")
         }
     }
 }
@@ -73,7 +89,7 @@ extension RepoListViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "RepoCell", for: indexPath) as! RepoCell
-        cell.bind(num: indexPath.row)
+        cell.bind(repo: repos[indexPath.row])
         
         return cell
     }
