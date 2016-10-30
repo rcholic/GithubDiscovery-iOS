@@ -42,11 +42,10 @@ class RepoCell: UITableViewCell {
     }
     
     func bind(repo: Repo) {
-        self.repoName.text = "repo \(repo.fullName)"
-        self.repoDesc.text = "Description \(repo.description)"
-        self.author.text = "author: \(repo.owner?.fullName)"
+        self.repoName.text = "\(repo.fullName)"
+        self.repoDesc.text = "Description: \(repo.description)"
+        self.author.text = "Author: \(repo.owner.name)"
         self.stars.text = "\(repo.stars) stars"
         self.language.text = repo.language ?? ""
     }
-    
 }

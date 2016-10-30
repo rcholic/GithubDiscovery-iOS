@@ -57,18 +57,36 @@ class RepoListViewController: UIViewController {
     }
     
     private func bindToRx() {
-        
+       
         GithubProvider.request(.trendingReposSinceLastWeek) { result in
             print("result.value: \(result.value?.data)")
             result.analysis(ifSuccess: { res in
                 let data = try! res.mapJSON()
+                
                 let resWrapper = JSON(data)
+                
                 self.repos = resWrapper["items"].arrayValue.map {
                     print("$0.description: \($0.dictionary)")
-                    return Mapper<Repo>().map(JSON: $0.dictionary!)!
+                    let id = $0.dictionary?["id"]?.intValue
+                    let desc = $0.dictionary?["description"]?.stringValue
+                    let fullName = $0.dictionary?["full_name"]?.stringValue
+                    let lang = $0.dictionary?["language"]?.stringValue
+                    let stars = $0.dictionary?["stargazers_count"]?.intValue
+                    let forks = $0.dictionary?["forks"]?.intValue
+                    let owner = $0.dictionary?["owner"]?.dictionaryObject
+                    
+                    let ownerId = owner?["id"] as! Int
+                    let ownerName = owner?["login"] as! String
+                    let ownerFullName = "full_name"//owner?["full_name"] as! String
+                    
+                    let ownerObj = Owner(id: ownerId, name: ownerName, fullName: ownerFullName)
+                    let repo = Repo(id: id!, description: desc!, fullName: fullName!, owner: ownerObj, forks: forks!, stars: stars!, language: lang!, createdAt: nil)
+                    
+                   return repo
+//                    return Mapper<Repo>().map(JSON: $0.dictionary!)!
                 }
                 self.tableView.reloadData()
-                print("res.response items: \(data), code: \(res.statusCode), repos count: \(self.repos.count)")
+//                print("res.response items: \(data), code: \(res.statusCode), repos count: \(self.repos.count)")
                 }, ifFailure: { err in
                     print("error: \(err)")
             })

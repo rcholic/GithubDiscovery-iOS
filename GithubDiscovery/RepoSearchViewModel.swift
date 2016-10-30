@@ -33,6 +33,13 @@ class RepoSearchViewModel {
         
         results = Variable<[RepoCellViewModel]>([]).asDriver() // init
         
+//        results = triggerRefresh.startWith(())
+//            .flatMapLatest {
+//                provider.request(.trendingReposSinceLastWeek, completion: { (Result<Response, Error>) in
+//
+//                })
+//            }
+        
         
     }
     

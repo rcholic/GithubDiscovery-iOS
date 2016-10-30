@@ -30,7 +30,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillProportionally" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tQn-At-83e">
-                                <frame key="frameInset" minX="8" minY="62" width="468" height="86"/>
+                                <frame key="frameInset" minX="8" minY="62" width="468" height="84"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="author" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UvO-WN-3Tp">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -68,7 +68,7 @@
                 <constraints>
                     <constraint firstItem="AfB-fR-Je7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5VL-dl-JCG"/>
                     <constraint firstAttribute="trailing" secondItem="AfB-fR-Je7" secondAttribute="trailing" id="Ogj-yQ-OKS"/>
-                    <constraint firstAttribute="bottom" secondItem="AfB-fR-Je7" secondAttribute="bottom" constant="2" id="Yz8-vC-u31"/>
+                    <constraint firstAttribute="bottom" secondItem="AfB-fR-Je7" secondAttribute="bottom" constant="4" id="Yz8-vC-u31"/>
                     <constraint firstItem="AfB-fR-Je7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="dcY-ky-t70"/>
                 </constraints>
             </tableViewCellContentView>

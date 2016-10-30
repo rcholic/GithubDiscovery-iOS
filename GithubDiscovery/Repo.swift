@@ -7,31 +7,54 @@
 //
 
 import Foundation
-//import SwiftyJSON
-import ObjectMapper
+import SwiftyJSON
+//import ObjectMapper
 
-struct Repo: Mappable {
+struct Repo: Decodable {
     var id: Int
     var description: String
     var fullName: String
-    var language: String?
+    var language: String
     var forks: Int
     var stars: Int
-    var owner: Owner?
+    var createdAt: NSDate?
+    var owner: Owner
     var isPrivate: Bool
     
-    init(id: Int, description: String, fullName: String,
-         forks: Int, stars: Int) {
+    init(id: Int, description: String, fullName: String, owner: Owner,
+         forks: Int, stars: Int, language: String, createdAt: NSDate?) {
         self.id = id
         self.description = description
         self.fullName = fullName
         self.forks = forks
         self.stars = stars
         self.isPrivate = false
-//        self.language = ""
-//        self.owner = nil
+        self.createdAt = createdAt
+        self.language = language
+        self.owner = owner
     }
     
+    static func fromJSON(json: AnyObject) -> Repo {
+        let json = JSON(json)
+        let id = json["id"].intValue
+        let createdAt = NSDate(githubStr: json["created_at"].stringValue)
+        let fullName = json["full_name"].stringValue
+        let description = json["description"].stringValue
+        let language = json["language"].string ?? ""
+        let stars = json["stargazers_count"].intValue
+        let forks = json["forks"].intValue
+        let owner = Owner.fromJSON(json: json["onwer"].object as AnyObject)
+        
+        return Repo(id: id,
+                    description: description,
+                    fullName: fullName,
+                    owner: owner,
+                    forks: forks,
+                    stars: stars,
+                    language: language,
+                    createdAt: createdAt)
+    }
+    /*
     init?(map: Map) {
 //        self.id = map["id"] as
 //        self.description = map["description"]
@@ -64,4 +87,5 @@ struct Repo: Mappable {
         isPrivate <- map["private"]
         
     }
+    */
 }
