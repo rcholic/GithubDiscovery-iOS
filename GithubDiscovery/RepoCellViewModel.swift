@@ -15,10 +15,10 @@ struct RepoCellViewModel {
     let language: String
     let stars: String
     
-    init(repo: Repo) {
+    init(repo: Repository) {
         self.fullName = repo.fullName
         self.description = repo.description
-        self.language = repo.language ?? ""
+        self.language = repo.language 
         self.stars = "\(repo.stars) stars"
     }
 }
@@ -26,7 +26,7 @@ struct RepoCellViewModel {
 extension Observable {
     func mapToRepoCellViewModels() -> Observable<[RepoCellViewModel]> {
         return self.map { repos in
-            if let repos  = repos as? [Repo] {
+            if let repos  = repos as? [Repository] {
                 return repos.map { return RepoCellViewModel(repo: $0) }
             } else {
                 return []

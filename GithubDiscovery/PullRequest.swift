@@ -9,14 +9,18 @@
 import Foundation
 import ObjectMapper
 
-struct PullRequest: BaseMappable {
-    var title: String
-    var author: String
-    var date: NSDate // ?? or String ?
+class PullRequest: Mappable {
+    var title: String = ""
+    var author: String = "Unknown"
+    var date: NSDate?
     
-    mutating func mapping(map: Map) {
+    required init(map: Map) {
+        self.mapping(map: map)
+    }
+    
+    func mapping(map: Map) {
         title <- map["title"]
-        author <- map["user"]["login"] // okay??
+        author <- map["user.login"] // nested json field "login"
         date <- map["createdAt"]
     }
 }

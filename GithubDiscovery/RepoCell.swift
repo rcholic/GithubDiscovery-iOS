@@ -41,11 +41,12 @@ class RepoCell: UITableViewCell {
         //        containerView.clipsToBounds = true
     }
     
-    func bind(repo: Repo) {
+    func bind(repo: Repository) {
+        let authorName = repo.owner == nil ? "Unknown" : repo.owner!.name
         self.repoName.text = "\(repo.fullName)"
-        self.repoDesc.text = "Description: \(repo.description)"
-        self.author.text = "Author: \(repo.owner.name)"
+        self.repoDesc.text = "Description: \(repo.description)"        
+        self.author.text = "Author: \(authorName)"
         self.stars.text = "\(repo.stars) stars"
-        self.language.text = repo.language ?? ""
+        self.language.text = repo.language 
     }
 }

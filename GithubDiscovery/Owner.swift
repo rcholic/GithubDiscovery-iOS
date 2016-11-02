@@ -7,44 +7,28 @@
 //
 
 import Foundation
-//import ObjectMapper
-import SwiftyJSON
+import ObjectMapper
 
-struct Owner: Decodable {
-    var id: Int
-    var name: String
-    var fullName: String
-    /*
-        init?(map: Map) {
-            self.id = 0
-            self.name = "name"
-            self.fullName = "full"
-            mapping(map: map)
-        }
-    */
+class Owner: Mappable {
+    var id: Int = 0
+    var name: String = ""
+    var fullName: String = ""
     
-    
-        init(id: Int, name: String, fullName: String) {
-            self.id = id
-            self.name = name
-            self.fullName = fullName
-        }
-    
-    static func fromJSON(json: AnyObject) -> Owner {
-        let json = JSON(json)
-        let id = json["id"].intValue
-        let name = json["login"].stringValue
-        let fullName = json["full_name"].stringValue
-        
-        return Owner(id: id, name: name, fullName: fullName)
+    required init(map: Map) {
+        self.mapping(map: map)
     }
     
-    /*
-    mutating func mapping(map: Map) {
+    init(id: Int, name: String, fullName: String) {
+        self.id = id
+        self.name = name
+        self.fullName = fullName
+    }
+    
+    func mapping(map: Map) {
         id <- map["id"]
         name <- map["login"]
         fullName <- map["full_name"]
     }
-    */
+    
 }
 
