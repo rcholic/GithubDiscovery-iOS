@@ -68,7 +68,7 @@ class RepoDetailViewController: UIViewController {
         tableView.tableFooterView = UIView() // remove separator in empty cells
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 40.0 // ??
-//        tableView.delegate = self
+        tableView.delegate = self
         tableView.dataSource = self
     }
     
@@ -117,6 +117,8 @@ class RepoDetailViewController: UIViewController {
 //                print("pulls resWrapper: \(resWrapper)")
                 self.pulls = resWrapper.arrayValue.map {
                     return Mapper<PullRequest>(context: context).map(JSON: $0.dictionaryObject!)!
+                    }.filter {
+                        return $0.state == OPEN_PULLS // only show open pull requests
                 }
                 self.tableView.reloadData()
                 self.pulls.forEach {
@@ -142,6 +144,7 @@ class RepoDetailViewController: UIViewController {
                 Loader.hide(delegate: self)
                 }, ifFailure: { err in
                     print("error: \(err)")
+                    Loader.hide(delegate: self)
             })
             
         }
@@ -190,9 +193,18 @@ extension RepoDetailViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Pull Requests: \(self.pulls.count)"
+            return "Open Pull Requests: \(self.pulls.count)"
         }
         return "Commits: \(self.commits.count)"
     }
+}
 
+extension RepoDetailViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            var pull = pulls[indexPath.row]
+            print("selected pull number: \(pull.number)")
+        }
+    }
 }

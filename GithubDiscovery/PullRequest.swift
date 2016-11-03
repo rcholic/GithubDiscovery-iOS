@@ -23,6 +23,7 @@ class PullRequest: Mappable, BaseCellData {
     var diff_url: String = ""
     var patch_url: String = ""
     var date: String? = nil
+    var state: String = ""
     
     required init(map: Map) {
         dateFormatter.dateStyle = .short
@@ -37,6 +38,7 @@ class PullRequest: Mappable, BaseCellData {
         html_url <- map["html_url"]
         diff_url <- map["diff_url"]
         patch_url <- map["patch_url"]
+        state <- map["state"]
         if let dateStr = map["created_at"].currentValue as? String {
             let d = NSDate(githubStr: dateStr)
             date = dateFormatter.string(from: d as Date)

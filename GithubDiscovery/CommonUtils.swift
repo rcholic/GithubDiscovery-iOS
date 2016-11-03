@@ -19,3 +19,4 @@ public let CELL_SEPARATOR_HEIGHT = 1.0 / UIScreen.main.scale
 public let CELL_SEPARATOR_COLOR = UIColor.lightGray
 
 public let GITHUB_TOKEN = ""
+public let OPEN_PULLS = "open"
