@@ -62,7 +62,7 @@ class RepoListViewController: UIViewController {
             let context = Context() // mapping context
             result.analysis(ifSuccess: { res in
                 let data = try! res.mapJSON()
-                print("result.data: \(data)")
+//                print("result.data: \(data)")
                 let resWrapper = JSON(data)
                 
                 self.repos = resWrapper["items"].arrayValue.map {
