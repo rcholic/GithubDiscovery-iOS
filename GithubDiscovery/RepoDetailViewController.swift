@@ -25,10 +25,11 @@ class RepoDetailViewController: UIViewController {
     @IBOutlet weak var ownerAvatar: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     
-    var curRepo: Repository?
+    weak var curRepo: Repository?
     var commits: [Commit] = []
     var pulls: [PullRequest] = []
     let cellIdentifier = "CommitPullCell"
+    let cancelButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,22 @@ class RepoDetailViewController: UIViewController {
     
     private func setupUI() {
         spacerView.backgroundColor = CELL_SEPARATOR_COLOR
+        cancelButton.addTarget(self, action: #selector(self.cancel), for: .touchUpInside)
+        cancelButton.contentMode = .center
+        let image = UIImage(named:"ic_cancel")?.withRenderingMode(.alwaysTemplate)
+        cancelButton.setImage(image, for: .normal)
+        cancelButton.tintColor = UIColor.red
+        self.view.addSubview(cancelButton)
+//        cancelButton.snp.makeConstraints { (make) in
+//            make.left.top.equalTo(self.view).offset(-10)
+//            make.width.equalTo(40)
+//        }
         
+        cancelButton.snp.makeConstraints { (make) in
+            make.right.equalTo(self.starLabel.snp.left).offset(8)
+            make.bottom.equalTo(self.starLabel.snp.top).offset(-5)
+            make.width.equalTo(40)
+        }
     }
     
     private func setupTableView() {
@@ -72,6 +88,13 @@ class RepoDetailViewController: UIViewController {
                     }
                 }
             }
+        }
+    }
+    
+    @objc private func cancel() {
+        self.dismiss(animated: true) { 
+            self.pulls = []
+            self.commits = []
         }
     }
     
@@ -148,11 +171,13 @@ extension RepoDetailViewController: UITableViewDataSource {
         case 0:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! CommitPullCell
             cell.bind(model: pulls[indexPath.row])
+            cell.accessoryType = .disclosureIndicator
             return cell
             
         case 1:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! CommitPullCell
             cell.bind(model: commits[indexPath.row])
+            cell.accessoryType = .none
             return cell
             
         default:
