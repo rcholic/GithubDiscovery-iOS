@@ -204,7 +204,7 @@ extension RepoDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             var pull = pulls[indexPath.row]
-            print("selected pull number: \(pull.number)")
+            print("selected pull number: \(pull.diff_url)")
         }
     }
 }
