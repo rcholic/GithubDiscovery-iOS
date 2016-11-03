@@ -51,7 +51,7 @@ class RepoListViewController: UIViewController {
         tableView.tableFooterView = UIView() // remove separator in empty cells
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 80.0 // ??
-        
+        tableView.delegate = self
         tableView.dataSource = self
     }
     
@@ -90,5 +90,15 @@ extension RepoListViewController: UITableViewDataSource {
         cell.bind(repo: repos[indexPath.row])
         
         return cell
+    }
+}
+
+extension RepoListViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "RepoDetailBoard") as! RepoDetailViewController
+        detailVC.curRepo = repos[indexPath.row]
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        self.present(detailVC, animated: true, completion: nil)
     }
 }

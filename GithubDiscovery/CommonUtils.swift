@@ -18,4 +18,4 @@ public let SCREEN_BOUNDS = UIScreen.main.bounds
 public let CELL_SEPARATOR_HEIGHT = 1.0 / UIScreen.main.scale
 public let CELL_SEPARATOR_COLOR = UIColor.lightGray
 
-public let GITHUB_TOKEN = "823f31718e2d4fc401f2bde56f65475c0973b49d"
+public let GITHUB_TOKEN = ""

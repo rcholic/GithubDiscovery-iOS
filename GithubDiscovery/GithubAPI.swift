@@ -18,9 +18,9 @@ public enum Github {
     case trendingReposSinceLastWeek
     case repo(owner: String, repoName: String)
     case repoReadMe(owner: String, repoName: String)
-    case pulls(onwer: String, repo: String)
-    case issues(onwer: String, repo: String)
-    case commits(onwer: String, repo: String)
+    case pulls(owner: String, repo: String)
+    case issues(owner: String, repo: String)
+    case commits(owner: String, repo: String)
 }
 
 extension Github: TargetType {
@@ -35,21 +35,21 @@ extension Github: TargetType {
              .trendingReposSinceLastWeek:
             return "search/repositories"
         case .repo(let owner, let repoName):
-            return "/repos\(owner)/\(repoName)"
+            return "/repos/\(owner)/\(repoName)"
         case .repoReadMe(let owner, let repoName):
-            return "/repos\(owner)/\(repoName)/readme"
+            return "/repos/\(owner)/\(repoName)/readme"
         case .pulls(let owner, let repo):
-            return "/repos\(owner)/\(repo)/pulls"
+            return "/repos/\(owner)/\(repo)/pulls"
         case .issues(let owner, let repo):
-            return "/repos\(owner)/\(repo)/issues"
+            return "/repos/\(owner)/\(repo)/issues"
         case .commits(let owner, let repo):
-            return "/repos\(owner)/\(repo)/commits"
+            return "/repos/\(owner)/\(repo)/commits"
         }
     }
     
     public var method: Moya.Method {
         switch self {
-        case .repoSearch(_), .repo(_, _), .pulls(_, _), .trendingReposSinceLastWeek:
+        case .repoSearch(_), .repo(_, _), .pulls(_, _), .commits(_, _), .trendingReposSinceLastWeek:
             return .GET
             
         default:
@@ -80,8 +80,6 @@ extension Github: TargetType {
         default:
             return nil
         }
-        
-        
     }
     
     public var task: Task {
@@ -99,7 +97,7 @@ extension Github: TargetType {
     
     public var target: TargetType {
         switch self {
-        case .issues(_, _), .trendingReposSinceLastWeek, .pulls(_, _):
+        case .issues(_, _), .trendingReposSinceLastWeek, .pulls(_, _), .commits(_, _):
             return self
         default:
             return self
@@ -115,7 +113,7 @@ var endpointClosure = { (target: Github) -> Endpoint<Github> in
     
         switch target {
             
-        case .trendingReposSinceLastWeek:
+        case .trendingReposSinceLastWeek, .commits, .pulls:
             return endpoint.endpointByAddingHTTPHeaderFields(["Authorization": "token \(GITHUB_TOKEN)"])
  
         default:

@@ -51,7 +51,7 @@ class RepositoryViewModel {
             
             .shareReplay(1)
         
-        let lastThreePullsObservable =  provider.request(Github.pulls(onwer: repo.owner.name, repo: repo.fullName))
+        let lastThreePullsObservable =  provider.request(Github.pulls(owner: repo.owner.name, repo: repo.fullName))
             .mapToModels(PullRequest.self)
             .asDriver(onErrorJustReturn: [])
             .map { (models: [PullRequest]) -> RepositorySectionViewModel in
@@ -61,7 +61,7 @@ class RepositoryViewModel {
                 return RepositorySectionViewModel(header: "Last three pull requests", items: items)
         }
         
-        let lastThreeIssuesObservable =  provider.request(Github.issues(onwer: repo.owner.name, repo: repo.fullName))
+        let lastThreeIssuesObservable =  provider.request(Github.issues(owner: repo.owner.name, repo: repo.fullName))
             .mapToModels(Issue.self)
             .asDriver(onErrorJustReturn: [])
             .map { (models: [Issue]) -> RepositorySectionViewModel in
@@ -71,7 +71,7 @@ class RepositoryViewModel {
                 return RepositorySectionViewModel(header: "Last three issues", items: items)
         }
         
-        let lastThreeCommitsObservable =  provider.request(GitHub.Commits(onwer: repo.owner.name, repo: repo.fullName))
+        let lastThreeCommitsObservable =  provider.request(GitHub.Commits(owner: repo.owner.name, repo: repo.fullName))
             .mapToModels(Commit.self)
             .asDriver(onErrorJustReturn: [])
             .map { (models: [Commit]) -> RepositorySectionViewModel in

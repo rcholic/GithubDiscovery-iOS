@@ -17,24 +17,23 @@ class Repository: Mappable {
     var id: Int = 0
     var description: String = ""
     var fullName: String = ""
+    var name: String = ""
     var language: String = ""
     var forks: Int = 0
     var stars: Int = 0
-    var createdAt: NSDate?
-    var owner: Owner?
+    var createdAt: NSDate? = nil
+    var owner: Owner? = nil
     var isPrivate: Bool = false
     
     required init(map: Map) {
-        self.createdAt = nil
-        self.owner = nil
         self.mapping(map: map)
     }
     
-    init(id: Int, description: String, fullName: String, owner: Owner,
-         forks: Int, stars: Int, language: String, createdAt: NSDate?) {
+    init(id: Int, description: String, fullName: String, name: String, owner: Owner, forks: Int, stars: Int, language: String, createdAt: NSDate) {
         self.id = id
         self.description = description
         self.fullName = fullName
+        self.name = name
         self.forks = forks
         self.stars = stars
         self.isPrivate = false
@@ -43,17 +42,19 @@ class Repository: Mappable {
         self.owner = owner
     }
     
-     func mapping(map: Map) {
-        
+     func mapping(map: Map) {        
         id <- map["id"]
         description <- map["description"]
         fullName <- map["full_name"]
+        name <- map["name"]
         language <- map["language"]
         forks <- map["forks"]
         owner <- map["owner"]
         stars <- map["stargazers_count"]
         isPrivate <- map["private"]
-
-     
+//        createdAt <- (map["created_at"], DateTransform())
+        if let dateStr = map["created_at"].currentValue as? String {
+            createdAt = NSDate(githubStr: dateStr)
+        }
      }
 }

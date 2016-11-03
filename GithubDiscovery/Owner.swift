@@ -13,6 +13,7 @@ class Owner: Mappable {
     var id: Int = 0
     var name: String = ""
     var fullName: String = ""
+    var avartarUrl: String? = nil
     
     required init(map: Map) {
         self.mapping(map: map)
@@ -28,6 +29,7 @@ class Owner: Mappable {
         id <- map["id"]
         name <- map["login"]
         fullName <- map["full_name"]
+        avartarUrl <- map["avatar_url"]
     }
     
 }
