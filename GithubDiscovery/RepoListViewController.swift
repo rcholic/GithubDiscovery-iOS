@@ -57,6 +57,7 @@ class RepoListViewController: UIViewController {
     
     private func loadData() {
        
+        Loader.show(message: "Loading Trending Repositories...", delegate: self)
         GithubProvider.request(.trendingReposSinceLastWeek) { result in
             let context = Context() // mapping context
             result.analysis(ifSuccess: { res in
@@ -68,8 +69,10 @@ class RepoListViewController: UIViewController {
                     return Mapper<Repository>(context: context).map(JSON: $0.dictionaryObject!)!
                 }
                 self.tableView.reloadData()
+                Loader.hide(delegate: self)
             }, ifFailure: { err in
                     print("error: \(err)")
+                Loader.hide(delegate: self)
             })
         }
     }

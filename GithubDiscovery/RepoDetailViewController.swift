@@ -107,7 +107,7 @@ class RepoDetailViewController: UIViewController {
         let repoName = repo.name // "MagicalRecord" // TODO: repo.name
         print("repo full name: \(repo.fullName), ownername: \(owner.name)")
         let context = Context() // mapping context
-        
+        Loader.show(message: "Loading Data...", delegate: self)
         GithubProvider.request(.pulls(owner: ownerName, repo: repoName)) { result in
             
             result.analysis(ifSuccess: { res in
@@ -139,6 +139,7 @@ class RepoDetailViewController: UIViewController {
                     return Mapper<Commit>(context: context).map(JSON: $0.dictionaryObject!)!
                 }
                 self.tableView.reloadData()
+                Loader.hide(delegate: self)
                 }, ifFailure: { err in
                     print("error: \(err)")
             })
