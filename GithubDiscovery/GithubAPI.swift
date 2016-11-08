@@ -75,7 +75,7 @@ extension Github: TargetType {
             return ["q": query.URLEscapedString as AnyObject]
             
         case .trendingReposSinceLastWeek:
-            return ["q": "ios"]
+            return ["q": "reactjs"]
             
         default:
             return nil
