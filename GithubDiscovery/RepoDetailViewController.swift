@@ -43,21 +43,15 @@ class RepoDetailViewController: UIViewController {
         spacerView.backgroundColor = CELL_SEPARATOR_COLOR
         cancelButton.addTarget(self, action: #selector(self.cancel), for: .touchUpInside)
         cancelButton.contentMode = .center
-        let image = UIImage(named:"ic_cancel")?.withRenderingMode(.alwaysTemplate)
-        cancelButton.setImage(image, for: .normal)
-//        cancelButton.tintColor = UIColor.red
+        
+        cancelButton.setImage(cancelImage, for: .normal)
+        cancelButton.tintColor = CLOSE_BTN_TINT
         self.view.addSubview(cancelButton)
         cancelButton.snp.makeConstraints { (make) in
             make.top.equalTo(self.view).offset(18)
             make.right.equalTo(self.view).offset(-2)
             make.width.equalTo(40)
         }
-        
-//        cancelButton.snp.makeConstraints { (make) in
-//            make.right.equalTo(self.starLabel.snp.left).offset(8)
-//            make.bottom.equalTo(self.starLabel.snp.top).offset(-5)
-//            make.width.equalTo(40)
-//        }
     }
     
     private func setupTableView() {
@@ -205,6 +199,12 @@ extension RepoDetailViewController: UITableViewDelegate {
         if indexPath.section == 0 {
             var pull = pulls[indexPath.row]
             print("selected pull number: \(pull.diff_url)")
+            
+            let targetVC = storyboard?.instantiateViewController(withIdentifier: "DiffViewBoard") as! RepoPullsDiffViewController
+            targetVC.diffUrlString = pull.diff_url
+            tableView.deselectRow(at: indexPath, animated: true)
+//            self.navigationController?.pushViewController(targetVC, animated: true)
+            self.present(targetVC, animated: true, completion: nil)
         }
     }
 }

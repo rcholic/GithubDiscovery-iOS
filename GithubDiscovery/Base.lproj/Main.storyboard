@@ -141,6 +141,25 @@
             </objects>
             <point key="canvasLocation" x="1716" y="270.31484257871068"/>
         </scene>
+        <!--Repo Pulls Diff View Controller-->
+        <scene sceneID="zIV-c4-jjh">
+            <objects>
+                <viewController storyboardIdentifier="DiffViewBoard" id="IC0-l7-LC5" customClass="RepoPullsDiffViewController" customModule="GithubDiscovery" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="X4U-aw-MMa"/>
+                        <viewControllerLayoutGuide type="bottom" id="z3A-b3-oCA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BzK-Gk-PN3">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="NVK-f2-mg9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PA4-lB-UF5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2463.1999999999998" y="270.31484257871068"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="aXI-fn-ZYv">
             <objects>

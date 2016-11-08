@@ -13,6 +13,7 @@ target 'GithubDiscovery' do
   pod 'ObjectMapper', '~> 2.2'
   pod 'SwiftyJSON'
   pod 'MBProgressHUD', '~> 1.0.0'
+  pod 'GRMustache.swift'
  
   post_install do |installer|
     installer.pods_project.targets.each do |target|

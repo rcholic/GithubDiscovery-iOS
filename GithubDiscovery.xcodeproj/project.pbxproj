@@ -30,6 +30,12 @@
 		EB41033F1DC404800052A0E7 /* GithubError.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB41033E1DC404800052A0E7 /* GithubError.swift */; };
 		EB4103411DC404950052A0E7 /* GithubAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4103401DC404950052A0E7 /* GithubAPI.swift */; };
 		EB4103431DC404FB0052A0E7 /* RepositoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB4103421DC404FB0052A0E7 /* RepositoryViewModel.swift */; };
+		EB6960DA1DD14DBE00BE6520 /* GitDiffView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6960D91DD14DBE00BE6520 /* GitDiffView.swift */; };
+		EB6960DC1DD14F4F00BE6520 /* GitDiffView.xib in Resources */ = {isa = PBXBuildFile; fileRef = EB6960DB1DD14F4F00BE6520 /* GitDiffView.xib */; };
+		EB6960DE1DD154DB00BE6520 /* Mustache.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EB6960DD1DD154DB00BE6520 /* Mustache.framework */; };
+		EB6960E01DD156BC00BE6520 /* RepoPullsDiffViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB6960DF1DD156BC00BE6520 /* RepoPullsDiffViewController.swift */; };
+		EB6960E51DD1616900BE6520 /* diff_view.html in Resources */ = {isa = PBXBuildFile; fileRef = EB6960E41DD1616900BE6520 /* diff_view.html */; };
+		EB6960E91DD172F800BE6520 /* diff.js in Resources */ = {isa = PBXBuildFile; fileRef = EB6960E81DD172F800BE6520 /* diff.js */; };
 		EB7AAE7E1DCA8AF800149C75 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AAE7D1DCA8AF800149C75 /* Repository.swift */; };
 		EB7AAE801DCA960800149C75 /* RepoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AAE7F1DCA960800149C75 /* RepoDetailViewController.swift */; };
 		EB7AAE821DCAB24300149C75 /* Commit.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB7AAE811DCAB24300149C75 /* Commit.swift */; };
@@ -93,6 +99,12 @@
 		EB41033E1DC404800052A0E7 /* GithubError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubError.swift; sourceTree = "<group>"; };
 		EB4103401DC404950052A0E7 /* GithubAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GithubAPI.swift; sourceTree = "<group>"; };
 		EB4103421DC404FB0052A0E7 /* RepositoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepositoryViewModel.swift; sourceTree = "<group>"; };
+		EB6960D91DD14DBE00BE6520 /* GitDiffView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GitDiffView.swift; sourceTree = "<group>"; };
+		EB6960DB1DD14F4F00BE6520 /* GitDiffView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GitDiffView.xib; sourceTree = "<group>"; };
+		EB6960DD1DD154DB00BE6520 /* Mustache.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Mustache.framework; path = "Pods/../build/Debug-iphoneos/GRMustache.swift/Mustache.framework"; sourceTree = "<group>"; };
+		EB6960DF1DD156BC00BE6520 /* RepoPullsDiffViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoPullsDiffViewController.swift; sourceTree = "<group>"; };
+		EB6960E41DD1616900BE6520 /* diff_view.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = diff_view.html; sourceTree = "<group>"; };
+		EB6960E81DD172F800BE6520 /* diff.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = diff.js; sourceTree = "<group>"; };
 		EB7AAE7D1DCA8AF800149C75 /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 		EB7AAE7F1DCA960800149C75 /* RepoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RepoDetailViewController.swift; sourceTree = "<group>"; };
 		EB7AAE811DCAB24300149C75 /* Commit.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Commit.swift; sourceTree = "<group>"; };
@@ -120,6 +132,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB6960DE1DD154DB00BE6520 /* Mustache.framework in Frameworks */,
 				EB7AAE881DCAD95F00149C75 /* MBProgressHUD.framework in Frameworks */,
 				EB2D24901DC400F500A2FEB8 /* SwiftyJSON.framework in Frameworks */,
 				EB2D248E1DC400F100A2FEB8 /* SnapKit.framework in Frameworks */,
@@ -168,6 +181,7 @@
 		528D30A3CA9A693A7519BA64 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EB6960DD1DD154DB00BE6520 /* Mustache.framework */,
 				EB7AAE871DCAD95F00149C75 /* MBProgressHUD.framework */,
 				EB2D248F1DC400F500A2FEB8 /* SwiftyJSON.framework */,
 				EB2D248D1DC400F100A2FEB8 /* SnapKit.framework */,
@@ -191,6 +205,15 @@
 				EB4103401DC404950052A0E7 /* GithubAPI.swift */,
 			);
 			name = Networking;
+			sourceTree = "<group>";
+		};
+		EB6960E11DD15F9600BE6520 /* html */ = {
+			isa = PBXGroup;
+			children = (
+				EB6960E81DD172F800BE6520 /* diff.js */,
+				EB6960E41DD1616900BE6520 /* diff_view.html */,
+			);
+			name = html;
 			sourceTree = "<group>";
 		};
 		EBACC6491DC3FCF00096EB5C = {
@@ -296,6 +319,7 @@
 			children = (
 				EBACC6891DC3FFF60096EB5C /* RepoListViewController.swift */,
 				EB7AAE7F1DCA960800149C75 /* RepoDetailViewController.swift */,
+				EB6960DF1DD156BC00BE6520 /* RepoPullsDiffViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -303,10 +327,13 @@
 		EBACC6881DC3FFD30096EB5C /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				EB6960E11DD15F9600BE6520 /* html */,
 				EB2D24911DC4012900A2FEB8 /* RepoCell.swift */,
 				EB2D24921DC4012900A2FEB8 /* RepoCell.xib */,
 				EB7AAE831DCAB9F400149C75 /* CommitPullCell.swift */,
 				EB7AAE841DCAB9F400149C75 /* CommitPullCell.xib */,
+				EB6960D91DD14DBE00BE6520 /* GitDiffView.swift */,
+				EB6960DB1DD14F4F00BE6520 /* GitDiffView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -430,7 +457,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB6960DC1DD14F4F00BE6520 /* GitDiffView.xib in Resources */,
+				EB6960E51DD1616900BE6520 /* diff_view.html in Resources */,
 				EBACC6601DC3FCF00096EB5C /* LaunchScreen.storyboard in Resources */,
+				EB6960E91DD172F800BE6520 /* diff.js in Resources */,
 				EBACC65D1DC3FCF00096EB5C /* Assets.xcassets in Resources */,
 				EB7AAE861DCAB9F400149C75 /* CommitPullCell.xib in Resources */,
 				EBACC65B1DC3FCF00096EB5C /* Main.storyboard in Resources */,
@@ -607,7 +637,9 @@
 				EB4103361DC4040B0052A0E7 /* PullRequest.swift in Sources */,
 				EB7AAE8A1DCAD97D00149C75 /* Loader.swift in Sources */,
 				EB4103341DC403F30052A0E7 /* Owner.swift in Sources */,
+				EB6960E01DD156BC00BE6520 /* RepoPullsDiffViewController.swift in Sources */,
 				EBACC6561DC3FCF00096EB5C /* AppDelegate.swift in Sources */,
+				EB6960DA1DD14DBE00BE6520 /* GitDiffView.swift in Sources */,
 				EB7AAE7E1DCA8AF800149C75 /* Repository.swift in Sources */,
 				EB7AAE801DCA960800149C75 /* RepoDetailViewController.swift in Sources */,
 				EB2D24961DC4035D00A2FEB8 /* CommonUtils.swift in Sources */,
@@ -774,6 +806,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/MBProgressHUD",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/GRMustache.swift",
 				);
 				INFOPLIST_FILE = GithubDiscovery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -793,6 +826,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/build/Debug-iphoneos/MBProgressHUD",
+					"$(PROJECT_DIR)/build/Debug-iphoneos/GRMustache.swift",
 				);
 				INFOPLIST_FILE = GithubDiscovery/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
