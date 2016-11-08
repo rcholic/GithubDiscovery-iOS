@@ -73,7 +73,7 @@ class RepoDetailViewController: UIViewController {
         repoName.text = repo.fullName
         repoDesc.text = repo.description
         starLabel.text = "Stars: \(repo.stars)"
-        forksLabel.text = "Forked: \(repo.forks)"
+        forksLabel.text = "Forks: \(repo.forks)"
         langLabel.text = "\(repo.language)"
         
         guard let repoOwner = repo.owner else { return }

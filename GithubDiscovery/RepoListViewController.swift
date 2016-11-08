@@ -99,9 +99,8 @@ extension RepoListViewController: UITableViewDataSource {
 extension RepoListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailVC = self.storyboard?.instantiateViewController(withIdentifier: "RepoDetailBoard") as! RepoDetailViewController
-        detailVC.curRepo = repos[indexPath.row]
-        
-        tableView.deselectRow(at: indexPath, animated: true)
+        detailVC.curRepo = repos[indexPath.row]        
         self.present(detailVC, animated: true, completion: nil)
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
