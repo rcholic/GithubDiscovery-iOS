@@ -18,7 +18,7 @@ public let SCREEN_BOUNDS = UIScreen.main.bounds
 public let CELL_SEPARATOR_HEIGHT = 1.0 / UIScreen.main.scale
 public let CELL_SEPARATOR_COLOR = UIColor.lightGray
 
-public let GITHUB_TOKEN = "93627f13233a402fe5d08533408b7f918885612d"
+public let GITHUB_TOKEN = ""
 public let OPEN_PULLS = "open"
 
 // MARK: UIImage icons

@@ -75,15 +75,13 @@ class RepoDetailViewController: UIViewController {
         starLabel.text = "Stars: \(repo.stars)"
         forksLabel.text = "Forked: \(repo.forks)"
         langLabel.text = "\(repo.language)"
-        if let owner = repo.owner {
-            if let avatarUrl = owner.avartarUrl {
-                if let url = NSURL(string: avatarUrl) {
-                    if let data = NSData(contentsOf: url as URL) {
-                        ownerAvatar.image = UIImage(data: data as Data)
-                    }
-                }
-            }
+        
+        guard let repoOwner = repo.owner else { return }
+        guard let avartarUrl = repoOwner.avartarUrl else { return }
+        if let url = NSURL(string: avartarUrl) , let data = NSData(contentsOf: url as URL) as? Data {
+            ownerAvatar.image = UIImage(data: data)
         }
+        
     }
     
     @objc private func cancel() {
@@ -97,18 +95,15 @@ class RepoDetailViewController: UIViewController {
         
         guard let repo = curRepo else { return }
         guard let owner = repo.owner else { return }
-        let ownerName = owner.name // "magicalpanda" // TODO: owner.name
-        let repoName = repo.name // "MagicalRecord" // TODO: repo.name
-        print("repo full name: \(repo.fullName), ownername: \(owner.name)")
-        let context = Context() // mapping context
+        let ownerName = owner.name
+        let repoName = repo.name
+        let context = Context()
         Loader.show(message: "Loading Data...", delegate: self)
         GithubProvider.request(.pulls(owner: ownerName, repo: repoName)) { result in
             
             result.analysis(ifSuccess: { res in
                 let data = try! res.mapJSON()
-//                print("result.data: \(data)")
                 let resWrapper = JSON(data)
-//                print("pulls resWrapper: \(resWrapper)")
                 self.pulls = resWrapper.arrayValue.map {
                     return Mapper<PullRequest>(context: context).map(JSON: $0.dictionaryObject!)!
                     }.filter {
@@ -127,10 +122,7 @@ class RepoDetailViewController: UIViewController {
 
             result.analysis(ifSuccess: { res in
                 let data = try! res.mapJSON()
-//                print("result.data: \(data)")
-                let resWrapper = JSON(data)
-//                print("commits resWrapper: \(resWrapper)")
-                
+                let resWrapper = JSON(data)                
                 self.commits = resWrapper.arrayValue.map {
                     return Mapper<Commit>(context: context).map(JSON: $0.dictionaryObject!)!
                 }
