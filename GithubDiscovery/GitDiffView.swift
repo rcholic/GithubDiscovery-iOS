@@ -20,6 +20,7 @@ class GitDiffView: UIView {
         let webView = WKWebView(frame: CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: SCREEN_HEIGHT))
         webView.navigationDelegate = self
         webView.scrollView.isScrollEnabled = true
+
         webView.sizeToFit()
         return webView
     }()
